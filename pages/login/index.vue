@@ -81,6 +81,17 @@ export default {
           this.form.email,
           this.form.password
         );
+        const { uid, email, emailVerified } = this.$fire.auth.currentUser
+
+        const profile = await this.$fire.firestore
+          .collection("profile")
+          .where("user_uid", "==", this.$fire.auth.currentUser.uid)
+          .get();
+        const profileData = profile.docs[0].data();
+
+        const userStore = { uid, email, emailVerified, profile: profileData }
+        await this.$store.dispatch("auth/setUser", userStore);
+
         return this.$router.push("/catalogo");
       } catch (e) {
         return this.$toast.error(e.message)

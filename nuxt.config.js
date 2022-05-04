@@ -57,13 +57,19 @@ export default {
       databaseURL: 'https://leosinhofilmes.firebaseio.com"',
     },
     services: {
-      auth: {
-        initialize: {
-          onAuthStateChangedMutation: 'auth/ON_AUTH_STATE_CHANGED_MUTATION'
-        },
-      },
-      database: true
+      auth: true,
+      firestore: true
     },
+  },
+
+  firestore: {
+    memoryOnly: false,
+    enablePersistence: true,
+    emulatorPort: 8080,
+    emulatorHost: 'localhost',
+    settings: {
+      // Firestore Settings - currently only works in SPA mode
+    }
   },
 
   axios: {

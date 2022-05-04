@@ -4,6 +4,20 @@
       <div class="col-8">
         <h2 class="text-center mb-5 title-login">Cadastro</h2>
         <b-form>
+
+          <b-form-group
+            label="Nome"
+            label-for="name"
+          >
+            <b-form-input
+              id="name"
+              type="text"
+              placeholder="João Silva"
+              autocomplete="off"
+              v-model="form.name"
+            ></b-form-input>
+          </b-form-group>
+
           <b-form-group
             label="E-mail"
             label-for="email"
@@ -19,11 +33,8 @@
 
           <b-form-group
             label-for="password"
+            label="Senha"
           >
-            <label class="d-flex justify-content-between">
-              Senha
-            </label>
-
             <b-form-input
               id="password"
               type="password"
@@ -79,6 +90,7 @@ export default {
   data() {
     return {
       form: {
+        name: "",
         email: "",
         password: "",
         confirmPassword: ""
@@ -101,7 +113,21 @@ export default {
           this.form.email,
           this.form.password
         )
-        return this.$router.push('/login')
+        const { uid, email, emailVerified } = this.$fire.auth.currentUser
+
+        const profile = await this.$fire.firestore.collection("profile").add({
+          user_uid: this.$fire.auth.currentUser.uid,
+          name: this.form.name,
+          favorite_ids: []
+        });
+        const profileData = (await profile.get()).data()
+
+        const userStore = { uid, email, emailVerified, profile: profileData }
+        await this.$store.dispatch("auth/setUser", userStore);
+
+        console.log(this.$store.state.auth.user)
+
+        return this.$router.push('/catalogo')
       } catch (e) {
         return this.$toast.error(e.message)
       }
