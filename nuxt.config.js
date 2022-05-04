@@ -41,8 +41,30 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/firebase',
+    '@nuxtjs/toast',
   ],
+
+  firebase: {
+    config: {
+      apiKey: "AIzaSyBokCfiLCYOKlXtCYKAPSe-fabm52MwP7k",
+      authDomain: "leosinhofilmes.firebaseapp.com",
+      projectId: "leosinhofilmes",
+      storageBucket: "leosinhofilmes.appspot.com",
+      messagingSenderId: "977925552851",
+      appId: "1:977925552851:web:7ed843d57be0e98d47b226",
+      databaseURL: 'https://leosinhofilmes.firebaseio.com"',
+    },
+    services: {
+      auth: {
+        initialize: {
+          onAuthStateChangedMutation: 'auth/ON_AUTH_STATE_CHANGED_MUTATION'
+        },
+      },
+      database: true
+    },
+  },
 
   axios: {
     baseURL: "https://api.themoviedb.org/3/",
@@ -50,6 +72,11 @@ export default {
       "api_key": "7a6c316575389afeedb5d6c5dd145032",
       "language": "pt-BR"
     }
+  },
+
+  toast: {
+    position: 'top-center',
+    duration: 3000,
   },
 
   env: {
