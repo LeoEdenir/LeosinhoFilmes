@@ -94,6 +94,7 @@ export default {
       api_key: "7a6c316575389afeedb5d6c5dd145032",
       language: "pt-BR"
     },
+    PORT: 8000
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
