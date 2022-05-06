@@ -2,6 +2,12 @@ export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
+  router: {
+    middleware: [
+      'loggedIn',
+    ],
+  },
+
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
@@ -24,10 +30,12 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '~/assets/css/global.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '~/plugins/vuex-persist', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -72,17 +80,13 @@ export default {
     }
   },
 
-  axios: {
-    baseURL: "https://api.themoviedb.org/3/",
-    config: {
-      "api_key": "7a6c316575389afeedb5d6c5dd145032",
-      "language": "pt-BR"
-    }
-  },
-
   toast: {
     position: 'top-center',
     duration: 3000,
+  },
+
+  axios: {
+    baseURL: "https://api.themoviedb.org/3/",
   },
 
   env: {

@@ -1,0 +1,7 @@
+.default-container {
+  height: auto;
+  background: #f4f6fb;
+  border-radius: 0.6em !important;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(10, 164, 247, 0.5);
+}

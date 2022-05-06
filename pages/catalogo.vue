@@ -1,11 +1,17 @@
 <template>
-
+  <catalogo />
 </template>
 
 <script>
+import Catalogo from "@/components/Catalogo";
+
 export default {
-  created() {
-    console.log(this.$store.state.auth.user)
+  components: {
+    'catalogo': Catalogo
   }
 }
 </script>
+
+<style>
+
+</style>

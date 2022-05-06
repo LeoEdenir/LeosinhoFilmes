@@ -79,7 +79,7 @@
       </div>
     </b-col>
     <b-col sm="7" class="d-flex justify-content-center align-items-center">
-      <img src="../../static/images/cadastro.svg" class="img-login" alt="login image"/>
+      <img src="../static/images/cadastro.svg" class="img-login" alt="login image"/>
     </b-col>
   </b-row>
 </template>
@@ -124,8 +124,6 @@ export default {
 
         const userStore = { uid, email, emailVerified, profile: profileData }
         await this.$store.dispatch("auth/setUser", userStore);
-
-        console.log(this.$store.state.auth.user)
 
         return this.$router.push('/catalogo')
       } catch (e) {
