@@ -7,26 +7,24 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item>Categorias</b-nav-item>
+          <b-nav-item href="#">
+
+            <b-nav-item-dropdown text="Gêneros">
+              <b-dropdown-item
+                v-for="genre in genres"
+                :key="genre.id"
+                :to="getGenreLink(genre)">
+                {{ genre.name }}
+              </b-dropdown-item>
+            </b-nav-item-dropdown>
+
+          </b-nav-item>
         </b-navbar-nav>
 
-        <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-form>
-            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-          </b-nav-form>
-
-          <b-nav-item-dropdown text="Lang" right>
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">ES</b-dropdown-item>
-            <b-dropdown-item href="#">RU</b-dropdown-item>
-            <b-dropdown-item href="#">FA</b-dropdown-item>
-          </b-nav-item-dropdown>
-
           <b-nav-item-dropdown text="User" right>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+            <b-dropdown-item to="/perfil">Perfil</b-dropdown-item>
+            <b-dropdown-item @click="logout">Logout</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -38,9 +36,29 @@
 export default {
   name: "Navbar",
 
+  data() {
+    return {
+      genres: []
+    }
+  },
+
+  created() {
+    this.getGenres()
+  },
+
   methods: {
-    catalogo() {
-      this.$router.push('/catalogo')
+    async getGenres() {
+      await this.$axios.$get("/genre/movie/list", {params: process.env.paramsUrl}).then((response) => {
+        this.genres = response.genres
+      })
+    },
+    getGenreLink(genre) {
+      return `/genero/${genre.id}`
+    },
+    async logout() {
+      await this.$router.push('/login')
+      await this.$fire.auth.signOut();
+      await this.$store.dispatch("auth/setUser", null);
     }
   }
 }

@@ -1,13 +1,13 @@
 <template>
-  <catalogo />
+  <lista-filmes/>
 </template>
 
 <script>
-import Catalogo from "@/components/Catalogo";
+import ListaFilmes from "@/components/ListaFilmes";
 
 export default {
   components: {
-    'catalogo': Catalogo
+    'lista-filmes': ListaFilmes
   }
 }
 </script>
